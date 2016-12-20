@@ -28,7 +28,10 @@
 #include "Platform/CompilerDefs.h"
 #include "Platform/Define.h"
 
-#if COMPILER == COMPILER_CLANG
+#if defined __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
+#  include <unordered_map>
+#  include <unordered_set>
+#elif COMPILER == COMPILER_CLANG
 #  include <tr1/unordered_map>
 #  include <tr1/unordered_set>
 #elif COMPILER == COMPILER_INTEL
@@ -96,6 +99,11 @@ HASH_NAMESPACE_END
 #  define HASH_NAMESPACE_END }
 using std::hash_map;
 using std::hash_set;
+#elif defined __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
+#  define UNORDERED_MAP std::unordered_map
+#  define UNORDERED_SET std::unordered_set
+#  define HASH_NAMESPACE_START namespace std { namespace __1 {
+#  define HASH_NAMESPACE_END } }
 #elif COMPILER == COMPILER_CLANG && defined(__FreeBSD__)
 #  define UNORDERED_MAP std::unordered_map
 #  define UNORDERED_SET std::unordered_set
