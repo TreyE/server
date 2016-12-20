@@ -1,4 +1,5 @@
 [submodule "dep"]
+	branch = master
 	path = dep
 	url = https://github.com/TreyE/mangosDeps
 [submodule "src/realmd"]
